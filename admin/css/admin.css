@@ -1,1 +1,195 @@
+/* Admin Dashboard Styles */
+.oms-admin-wrapper {
+    margin: 20px;
+}
 
+.oms-admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.oms-admin-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Admin Card Styles */
+.oms-admin-card {
+    background: #fff;
+    border: 1px solid #e2e4e7;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    margin-bottom: 20px;
+}
+
+.oms-admin-card-header {
+    border-bottom: 1px solid #e2e4e7;
+    padding: 15px;
+    font-weight: 600;
+    background: #f5f5f5;
+}
+
+.oms-admin-card-body {
+    padding: 15px;
+}
+
+.oms-admin-card-footer {
+    border-top: 1px solid #e2e4e7;
+    padding: 10px 15px;
+    background: #f9f9f9;
+}
+
+/* Admin Table Styles */
+.oms-admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.oms-admin-table th {
+    background: #f5f5f5;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #e2e4e7;
+    font-weight: 600;
+}
+
+.oms-admin-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e2e4e7;
+}
+
+.oms-admin-table tr:hover {
+    background: #f9f9f9;
+}
+
+/* Admin Form Styles */
+.oms-admin-form-group {
+    margin-bottom: 15px;
+}
+
+.oms-admin-form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.oms-admin-form-input,
+.oms-admin-form-select,
+.oms-admin-form-textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.oms-admin-form-textarea {
+    min-height: 100px;
+}
+
+/* Admin Button Styles */
+.oms-admin-button {
+    display: inline-block;
+    padding: 8px 12px;
+    background: #2271b1;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.oms-admin-button:hover {
+    background: #135e96;
+}
+
+.oms-admin-button-secondary {
+    background: #f6f7f7;
+    color: #2c3338;
+    border: 1px solid #2c3338;
+}
+
+.oms-admin-button-secondary:hover {
+    background: #f0f0f1;
+}
+
+/* Admin Status Indicators */
+.oms-status-active {
+    background: #d4edda;
+    color: #155724;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.oms-status-inactive {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* Admin Profile Image */
+.oms-admin-profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Media Upload Button */
+.oms-media-upload-button {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+/* Dashboard Stats */
+.oms-admin-stats {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+
+.oms-admin-stat-card {
+    flex: 1 1 250px;
+    margin: 10px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #e2e4e7;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    text-align: center;
+}
+
+.oms-admin-stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.oms-admin-stat-label {
+    color: #646970;
+}
+
+/* Message Styles */
+.oms-admin-message {
+    border-left: 4px solid #2271b1;
+    background: #f0f6fc;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+.oms-admin-message-sender {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.oms-admin-message-time {
+    color: #646970;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.oms-admin-message-content {
+    margin-top: 10px;
+}
