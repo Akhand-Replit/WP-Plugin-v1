@@ -64,6 +64,26 @@ class OMS_Admin {
         );
     }
 
+
+    /**
+ * Register REST API endpoints for admin
+ */
+public function register_admin_hooks() {
+    // AJAX actions we already defined
+    add_action('wp_ajax_oms_create_company', array($this, 'create_company'));
+    add_action('wp_ajax_oms_get_companies', array($this, 'get_companies'));
+    add_action('wp_ajax_oms_get_branches', array($this, 'get_branches'));
+    add_action('wp_ajax_oms_toggle_company_status', array($this, 'toggle_company_status'));
+    add_action('wp_ajax_oms_send_message_to_company', array($this, 'send_message_to_company'));
+    add_action('wp_ajax_oms_delete_message', array($this, 'delete_message'));
+    add_action('wp_ajax_oms_update_admin_profile', array($this, 'update_admin_profile'));
+    
+    // New AJAX actions for the message system
+    add_action('wp_ajax_oms_get_sent_messages', array($this, 'get_sent_messages'));
+    add_action('wp_ajax_oms_get_received_messages', array($this, 'get_received_messages'));
+    add_action('wp_ajax_oms_get_message_details', array($this, 'get_message_details'));
+}
+
     /**
      * Register settings
      */
