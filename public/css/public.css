@@ -1,1 +1,133 @@
+/* General Styles */
+.oms-container {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 20px;
+}
 
+.oms-login-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Profile Images */
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.employee-thumbnail {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.employee-initials {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Dashboards */
+.oms-company-dashboard,
+.oms-employee-dashboard {
+    margin-bottom: 50px;
+}
+
+/* Sidebar */
+@media (min-width: 992px) {
+    .list-group {
+        position: sticky;
+        top: 20px;
+    }
+}
+
+.list-group-item i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Tables */
+.table th {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Status Badges */
+.badge {
+    font-size: 0.8rem;
+    padding: 0.35em 0.65em;
+}
+
+/* Card Adjustments */
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header h5 {
+    margin-bottom: 0;
+}
+
+/* Button Groups */
+.btn-group .btn {
+    padding: 0.25rem 0.5rem;
+}
+
+/* Modal Adjustments */
+.modal-header {
+    background-color: #f8f9fa;
+}
+
+/* Form Input Groups */
+.input-group-text {
+    background-color: #f8f9fa;
+}
+
+/* Alert Messages */
+.alert {
+    margin-bottom: 15px;
+}
+
+/* Tab Content */
+.tab-content {
+    padding: 20px 0;
+}
+
+/* Navigation Pills */
+.nav-pills .nav-link.active {
+    background-color: #007bff;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .table {
+        font-size: 0.9rem;
+    }
+    
+    .btn-group .btn {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Custom Date Range Inputs */
+.custom-date-range.d-block {
+    display: block !important;
+    margin-top: 10px;
+}
