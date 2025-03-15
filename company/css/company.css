@@ -1,1 +1,192 @@
+/* Company Dashboard Specific Styles */
+/* Note: Most styles are inherited from public.css */
 
+/* Company Header Styles */
+.company-header {
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+}
+
+.company-header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.company-info {
+    display: flex;
+    align-items: center;
+}
+
+.company-info .profile-image {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+}
+
+/* Branch Management Styles */
+.branch-card {
+    transition: transform 0.2s;
+}
+
+.branch-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.branch-status-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.branch-employee-count {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #f8f9fa;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+/* Employee Management Styles */
+.employee-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    transition: background-color 0.2s;
+}
+
+.employee-card:hover {
+    background-color: #f8f9fa;
+}
+
+.employee-details {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.employee-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.employee-role {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.employee-actions {
+    display: flex;
+    gap: 5px;
+}
+
+/* Task Management Styles */
+.task-priority-high {
+    border-left: 4px solid #dc3545;
+}
+
+.task-priority-medium {
+    border-left: 4px solid #ffc107;
+}
+
+.task-priority-low {
+    border-left: 4px solid #28a745;
+}
+
+.task-status-pending {
+    background-color: #fff3cd;
+}
+
+.task-status-completed {
+    background-color: #d1e7dd;
+}
+
+/* Report Styles */
+.report-date-filter {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.report-summary {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.report-chart-container {
+    height: 300px;
+    margin-bottom: 30px;
+}
+
+/* Message Center Styles */
+.message-thread {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.message-bubble {
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    max-width: 75%;
+}
+
+.message-sent {
+    background-color: #007bff;
+    color: white;
+    margin-left: auto;
+}
+
+.message-received {
+    background-color: #e9ecef;
+    margin-right: auto;
+}
+
+.message-time {
+    font-size: 12px;
+    color: #6c757d;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.message-compose {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.message-input {
+    flex-grow: 1;
+}
+
+/* Profile Page Styles */
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-image-large {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.profile-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
