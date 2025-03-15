@@ -66,23 +66,23 @@ class OMS_Admin {
 
 
     /**
- * Register REST API endpoints for admin
- */
-public function register_admin_hooks() {
-    // AJAX actions we already defined
-    add_action('wp_ajax_oms_create_company', array($this, 'create_company'));
-    add_action('wp_ajax_oms_get_companies', array($this, 'get_companies'));
-    add_action('wp_ajax_oms_get_branches', array($this, 'get_branches'));
-    add_action('wp_ajax_oms_toggle_company_status', array($this, 'toggle_company_status'));
-    add_action('wp_ajax_oms_send_message_to_company', array($this, 'send_message_to_company'));
-    add_action('wp_ajax_oms_delete_message', array($this, 'delete_message'));
-    add_action('wp_ajax_oms_update_admin_profile', array($this, 'update_admin_profile'));
-    
-    // New AJAX actions for the message system
-    add_action('wp_ajax_oms_get_sent_messages', array($this, 'get_sent_messages'));
-    add_action('wp_ajax_oms_get_received_messages', array($this, 'get_received_messages'));
-    add_action('wp_ajax_oms_get_message_details', array($this, 'get_message_details'));
-}
+     * Register REST API endpoints for admin
+     */
+    public function register_admin_hooks() {
+        // AJAX actions we already defined
+        add_action('wp_ajax_oms_create_company', array($this, 'create_company'));
+        add_action('wp_ajax_oms_get_companies', array($this, 'get_companies'));
+        add_action('wp_ajax_oms_get_branches', array($this, 'get_branches'));
+        add_action('wp_ajax_oms_toggle_company_status', array($this, 'toggle_company_status'));
+        add_action('wp_ajax_oms_send_message_to_company', array($this, 'send_message_to_company'));
+        add_action('wp_ajax_oms_delete_message', array($this, 'delete_message'));
+        add_action('wp_ajax_oms_update_admin_profile', array($this, 'update_admin_profile'));
+        
+        // New AJAX actions for the message system
+        add_action('wp_ajax_oms_get_sent_messages', array($this, 'get_sent_messages'));
+        add_action('wp_ajax_oms_get_received_messages', array($this, 'get_received_messages'));
+        add_action('wp_ajax_oms_get_message_details', array($this, 'get_message_details'));
+    }
 
     /**
      * Register settings
@@ -440,136 +440,136 @@ public function register_admin_hooks() {
             'message' => 'Profile updated successfully'
         ));
     }
-}
 
-/**
- * Get sent messages
- */
-public function get_sent_messages() {
-    check_ajax_referer('oms_admin_nonce', 'nonce');
-    
-    if (!current_user_can('manage_options')) {
-        wp_send_json_error('Permission denied');
-        return;
+    /**
+     * Get sent messages
+     */
+    public function get_sent_messages() {
+        check_ajax_referer('oms_admin_nonce', 'nonce');
+        
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error('Permission denied');
+            return;
+        }
+        
+        $company_id = isset($_POST['company_id']) ? intval($_POST['company_id']) : 0;
+        
+        global $wpdb;
+        $table_messages = $wpdb->prefix . 'oms_messages';
+        $table_companies = $wpdb->prefix . 'oms_companies';
+        
+        $query = "
+            SELECT m.*, c.company_name 
+            FROM $table_messages m
+            JOIN $table_companies c ON m.receiver_id = c.id 
+            WHERE m.sender_type = 'admin' AND m.receiver_type = 'company'
+        ";
+        
+        if ($company_id > 0) {
+            $query .= $wpdb->prepare(" AND m.receiver_id = %d", $company_id);
+        }
+        
+        $query .= " ORDER BY m.created_at DESC";
+        
+        $messages = $wpdb->get_results($query);
+        
+        wp_send_json_success(array('messages' => $messages));
     }
-    
-    $company_id = isset($_POST['company_id']) ? intval($_POST['company_id']) : 0;
-    
-    global $wpdb;
-    $table_messages = $wpdb->prefix . 'oms_messages';
-    $table_companies = $wpdb->prefix . 'oms_companies';
-    
-    $query = "
-        SELECT m.*, c.company_name 
-        FROM $table_messages m
-        JOIN $table_companies c ON m.receiver_id = c.id 
-        WHERE m.sender_type = 'admin' AND m.receiver_type = 'company'
-    ";
-    
-    if ($company_id > 0) {
-        $query .= $wpdb->prepare(" AND m.receiver_id = %d", $company_id);
-    }
-    
-    $query .= " ORDER BY m.created_at DESC";
-    
-    $messages = $wpdb->get_results($query);
-    
-    wp_send_json_success(array('messages' => $messages));
-}
 
-/**
- * Get received messages
- */
-public function get_received_messages() {
-    check_ajax_referer('oms_admin_nonce', 'nonce');
-    
-    if (!current_user_can('manage_options')) {
-        wp_send_json_error('Permission denied');
-        return;
+    /**
+     * Get received messages
+     */
+    public function get_received_messages() {
+        check_ajax_referer('oms_admin_nonce', 'nonce');
+        
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error('Permission denied');
+            return;
+        }
+        
+        $company_id = isset($_POST['company_id']) ? intval($_POST['company_id']) : 0;
+        
+        global $wpdb;
+        $table_messages = $wpdb->prefix . 'oms_messages';
+        $table_companies = $wpdb->prefix . 'oms_companies';
+        
+        $query = "
+            SELECT m.*, c.company_name 
+            FROM $table_messages m
+            JOIN $table_companies c ON m.sender_id = c.id 
+            WHERE m.sender_type = 'company' AND m.receiver_type = 'admin'
+        ";
+        
+        if ($company_id > 0) {
+            $query .= $wpdb->prepare(" AND m.sender_id = %d", $company_id);
+        }
+        
+        $query .= " ORDER BY m.created_at DESC";
+        
+        $messages = $wpdb->get_results($query);
+        
+        // Mark unread messages as read
+        $wpdb->query("
+            UPDATE $table_messages 
+            SET status = 'read' 
+            WHERE sender_type = 'company' 
+            AND receiver_type = 'admin' 
+            AND status = 'unread'
+        ");
+        
+        wp_send_json_success(array('messages' => $messages));
     }
-    
-    $company_id = isset($_POST['company_id']) ? intval($_POST['company_id']) : 0;
-    
-    global $wpdb;
-    $table_messages = $wpdb->prefix . 'oms_messages';
-    $table_companies = $wpdb->prefix . 'oms_companies';
-    
-    $query = "
-        SELECT m.*, c.company_name 
-        FROM $table_messages m
-        JOIN $table_companies c ON m.sender_id = c.id 
-        WHERE m.sender_type = 'company' AND m.receiver_type = 'admin'
-    ";
-    
-    if ($company_id > 0) {
-        $query .= $wpdb->prepare(" AND m.sender_id = %d", $company_id);
-    }
-    
-    $query .= " ORDER BY m.created_at DESC";
-    
-    $messages = $wpdb->get_results($query);
-    
-    // Mark unread messages as read
-    $wpdb->query("
-        UPDATE $table_messages 
-        SET status = 'read' 
-        WHERE sender_type = 'company' 
-        AND receiver_type = 'admin' 
-        AND status = 'unread'
-    ");
-    
-    wp_send_json_success(array('messages' => $messages));
-}
 
-/**
- * Get message details
- */
-public function get_message_details() {
-    check_ajax_referer('oms_admin_nonce', 'nonce');
-    
-    if (!current_user_can('manage_options')) {
-        wp_send_json_error('Permission denied');
-        return;
+    /**
+     * Get message details
+     */
+    public function get_message_details() {
+        check_ajax_referer('oms_admin_nonce', 'nonce');
+        
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error('Permission denied');
+            return;
+        }
+        
+        $message_id = intval($_POST['message_id']);
+        
+        global $wpdb;
+        $table_messages = $wpdb->prefix . 'oms_messages';
+        $table_companies = $wpdb->prefix . 'oms_companies';
+        
+        $message = $wpdb->get_row($wpdb->prepare("
+            SELECT m.*, 
+                CASE 
+                    WHEN m.sender_type = 'company' THEN c_sender.company_name
+                    WHEN m.receiver_type = 'company' THEN c_receiver.company_name
+                    ELSE NULL
+                END as company_name,
+                CASE 
+                    WHEN m.sender_type = 'company' THEN m.sender_id
+                    WHEN m.receiver_type = 'company' THEN m.receiver_id
+                    ELSE NULL
+                END as company_id
+            FROM $table_messages m
+            LEFT JOIN $table_companies c_sender ON m.sender_type = 'company' AND m.sender_id = c_sender.id
+            LEFT JOIN $table_companies c_receiver ON m.receiver_type = 'company' AND m.receiver_id = c_receiver.id
+            WHERE m.id = %d
+        ", $message_id));
+        
+        if (!$message) {
+            wp_send_json_error('Message not found');
+            return;
+        }
+        
+        // If it's a received message, mark it as read
+        if ($message->sender_type === 'company' && $message->receiver_type === 'admin' && $message->status === 'unread') {
+            $wpdb->update(
+                $table_messages,
+                array('status' => 'read'),
+                array('id' => $message_id)
+            );
+            $message->status = 'read';
+        }
+        
+        wp_send_json_success(array('message' => $message));
     }
-    
-    $message_id = intval($_POST['message_id']);
-    
-    global $wpdb;
-    $table_messages = $wpdb->prefix . 'oms_messages';
-    $table_companies = $wpdb->prefix . 'oms_companies';
-    
-    $message = $wpdb->get_row($wpdb->prepare("
-        SELECT m.*, 
-            CASE 
-                WHEN m.sender_type = 'company' THEN c_sender.company_name
-                WHEN m.receiver_type = 'company' THEN c_receiver.company_name
-                ELSE NULL
-            END as company_name,
-            CASE 
-                WHEN m.sender_type = 'company' THEN m.sender_id
-                WHEN m.receiver_type = 'company' THEN m.receiver_id
-                ELSE NULL
-            END as company_id
-        FROM $table_messages m
-        LEFT JOIN $table_companies c_sender ON m.sender_type = 'company' AND m.sender_id = c_sender.id
-        LEFT JOIN $table_companies c_receiver ON m.receiver_type = 'company' AND m.receiver_id = c_receiver.id
-        WHERE m.id = %d
-    ", $message_id));
-    
-    if (!$message) {
-        wp_send_json_error('Message not found');
-        return;
-    }
-    
-    // If it's a received message, mark it as read
-    if ($message->sender_type === 'company' && $message->receiver_type === 'admin' && $message->status === 'unread') {
-        $wpdb->update(
-            $table_messages,
-            array('status' => 'read'),
-            array('id' => $message_id)
-        );
-        $message->status = 'read';
-    }
-    
-    wp_send_json_success(array('message' => $message));
 }
