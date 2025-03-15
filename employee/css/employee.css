@@ -1,1 +1,239 @@
+/* Employee Dashboard Specific Styles */
+/* Note: Most styles are inherited from public.css */
 
+/* Employee Header Styles */
+.employee-header {
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border-left: 4px solid #28a745;
+}
+
+.employee-info {
+    display: flex;
+    align-items: center;
+}
+
+.employee-info .profile-image {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+}
+
+.employee-role-badge {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+.role-manager {
+    background-color: #dc3545;
+    color: white;
+}
+
+.role-assistant-manager {
+    background-color: #fd7e14;
+    color: white;
+}
+
+.role-general {
+    background-color: #17a2b8;
+    color: white;
+}
+
+/* Task Management Styles */
+.task-card {
+    border-radius: 5px;
+    margin-bottom: 15px;
+    transition: transform 0.2s;
+}
+
+.task-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+}
+
+.task-title {
+    font-weight: bold;
+}
+
+.task-description {
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.task-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.task-actions {
+    margin-top: 10px;
+}
+
+.task-complete-button {
+    color: #28a745;
+    cursor: pointer;
+}
+
+.task-complete-button.completed {
+    color: #6c757d;
+}
+
+/* Daily Report Styles */
+.report-form-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.report-date-selector {
+    margin-bottom: 20px;
+}
+
+.report-content-editor {
+    min-height: 200px;
+    margin-bottom: 20px;
+}
+
+.report-submit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.report-history-item {
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.report-history-date {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.report-history-content {
+    margin-bottom: 10px;
+}
+
+.report-history-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+/* Message Center Styles (Similar to Company CSS) */
+.message-thread {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.message-bubble {
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    max-width: 75%;
+}
+
+.message-sent {
+    background-color: #28a745;
+    color: white;
+    margin-left: auto;
+}
+
+.message-received {
+    background-color: #e9ecef;
+    margin-right: auto;
+}
+
+.message-from-manager {
+    border-left: 3px solid #dc3545;
+}
+
+.message-from-assistant {
+    border-left: 3px solid #fd7e14;
+}
+
+.message-time {
+    font-size: 12px;
+    color: #6c757d;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.message-compose {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.message-input {
+    flex-grow: 1;
+}
+
+/* Subordinate Management Styles (For Managers/Asst. Managers) */
+.subordinate-list {
+    margin-top: 20px;
+}
+
+.subordinate-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    transition: background-color 0.2s;
+}
+
+.subordinate-card:hover {
+    background-color: #f8f9fa;
+}
+
+.subordinate-details {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.subordinate-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.subordinate-role {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.subordinate-actions {
+    display: flex;
+    gap: 5px;
+}
+
+/* Profile Page Styles (Similar to Company CSS) */
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-image-large {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.profile-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
