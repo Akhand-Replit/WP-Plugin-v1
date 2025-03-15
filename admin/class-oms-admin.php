@@ -82,6 +82,7 @@ class OMS_Admin {
         add_action('wp_ajax_oms_get_sent_messages', array($this, 'get_sent_messages'));
         add_action('wp_ajax_oms_get_received_messages', array($this, 'get_received_messages'));
         add_action('wp_ajax_oms_get_message_details', array($this, 'get_message_details'));
+        add_action('wp_ajax_oms_get_company_messages', array($this, 'get_company_messages'));
     }
 
     /**
@@ -131,7 +132,12 @@ class OMS_Admin {
      * Display companies page
      */
     public function display_companies_page() {
-        include_once OMS_PLUGIN_DIR . 'admin/views/companies.php';
+        // Check if we're viewing a single company
+        if (isset($_GET['action']) && $_GET['action'] === 'view' && isset($_GET['id'])) {
+            include_once OMS_PLUGIN_DIR . 'admin/views/company-details.php';
+        } else {
+            include_once OMS_PLUGIN_DIR . 'admin/views/companies.php';
+        }
     }
 
     /**
@@ -571,5 +577,33 @@ class OMS_Admin {
         }
         
         wp_send_json_success(array('message' => $message));
+    }
+
+    /**
+     * Get company messages
+     */
+    public function get_company_messages() {
+        check_ajax_referer('oms_admin_nonce', 'nonce');
+        
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error('Permission denied');
+            return;
+        }
+        
+        $company_id = isset($_POST['company_id']) ? intval($_POST['company_id']) : 0;
+        
+        global $wpdb;
+        $table_messages = $wpdb->prefix . 'oms_messages';
+        
+        $messages = $wpdb->get_results($wpdb->prepare(
+            "SELECT * FROM $table_messages 
+            WHERE (sender_type = 'admin' AND receiver_type = 'company' AND receiver_id = %d) 
+            OR (sender_type = 'company' AND sender_id = %d AND receiver_type = 'admin') 
+            ORDER BY created_at DESC 
+            LIMIT 10",
+            $company_id, $company_id
+        ));
+        
+        wp_send_json_success(array('messages' => $messages));
     }
 }
